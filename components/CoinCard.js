@@ -19,6 +19,11 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 20
     },
+    coinName: {
+        marginTop: 10,
+        marginLeft: 5,
+        marginRight: 20
+    },
     seperator: {
         marginTop: 10,
     },
@@ -34,13 +39,32 @@ const styles = StyleSheet.create({
     },
     moneySymbol: {
         fontWeight: "bold",
+    },
+    statsContainer: {
+        display: "flex",
+        borderTopColor: "#fafafa",
+        borderTopWidth: 2,
+        padding: 10,
+        flexDirection: "row",
+        justifyContent: "space-around"
+    },
+    percentChangePlus: {
+        color: "#00BFA5",
+        fontWeight: "bold",
+        marginLeft: 5
+    },
+    percentChangeMinus: {
+        color: "#DD2C00",
+        fontWeight: "bold",
+        marginLeft: 5
     }
 })
 
 const {
     container, containerRow, image,
     symbol, seperator, coinName,
-    coinPrice, moneySymbol
+    price, moneySymbol, statsContainer,
+    percentChangeMinus, percentChangePlus
 } = styles;
 
 const CoinCard = () => {
@@ -54,9 +78,19 @@ const CoinCard = () => {
                 <Text style={symbol}>BTC</Text>
                 <Text style={seperator}>|</Text>
                 <Text style={coinName}>Bitcoin</Text>
-                <Text style={coinPrice}>
+                <Text style={price}>
                     1000
                     <Text style={moneySymbol}> $ </Text>
+                </Text>
+            </View>
+
+
+            <View style={statsContainer}>
+                <Text>24h:
+                     <Text style={percentChangeMinus}> 10 % </Text>
+                </Text>
+                <Text>7d:
+                    <Text style={ percentChangePlus }> 10 % </Text>
                 </Text>
             </View>
         </View>
