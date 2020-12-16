@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
+import { connect } from 'react-redux';
 
+import FetchCoinData from '../Actions/FetchCoinData'
 import CoinCard from './CoinCard';
 
 const styles = StyleSheet.create({
@@ -13,26 +15,32 @@ const styles = StyleSheet.create({
 
 class WrapperCoins extends React.Component {
 
-    state = {
-        loading: false
-    }
-
     componentDidMount() {
-        this.setState({ loading: true })
-        setTimeout(() => this.setState({ loading: false }), 1000)
+        this.props.FetchCoinData();
     }
 
     renderCards() {
-        return "1234567890".split('').map(card => <CoinCard key={card} />)
+        console.log(this.props.crypto)
+        const { crypto } = this.props
+        return crypto.data.map(coin => {
+            return (
+                <CoinCard
+                    key={coin.id}
+                    id={coin.id}
+                    name={coin.name}
+                    symbol={coin.symbol}
+                />
+            )
+        })
     }
 
     render() {
-        const { loading } = this.state
-        if (this.state.loading) {
+        const { crypto } = this.props
+        if (crypto.isFetching) {
             return (
                 <View>
                     <Spinner
-                        visible={loading}
+                        visible={crypto.isFetching}
                         textContent="Loading..."
                         textStyle={{ color: '#253145' }}
                         animation="fade"
@@ -49,4 +57,10 @@ class WrapperCoins extends React.Component {
     }
 }
 
-export default WrapperCoins;
+const mapStateToProps = (state) => {
+    return {
+        crypto: state.crypto
+    }
+}
+
+export default connect(mapStateToProps, { FetchCoinData })(WrapperCoins)

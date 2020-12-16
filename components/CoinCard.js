@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginBottom: 15
     },
-    symbol: {
+    coinSymbol: {
         marginTop: 10,
         marginLeft: 5,
         marginRight: 20
@@ -62,22 +62,22 @@ const styles = StyleSheet.create({
 
 const {
     container, containerRow, image,
-    symbol, seperator, coinName,
+    coinSymbol, seperator, coinName,
     price, moneySymbol, statsContainer,
     percentChangeMinus, percentChangePlus
 } = styles;
 
-const CoinCard = () => {
+const CoinCard = ({ id, symbol, name }) => {
     return (
         <View style={container}>
             <View style={containerRow}>
                 <Image
                     style={image}
-                    source={{ uri: "https://res.cloudinary.com/da7jhtpgh/image/upload/v1508609483/bitcoin_eqld4v.png" }}
+                    source={{ uri: `https://s2.coinmarketcap.com/static/img/coins/64x64/${id}.png` }}
                 />
-                <Text style={symbol}>BTC</Text>
+                <Text style={coinSymbol}>{symbol}</Text>
                 <Text style={seperator}>|</Text>
-                <Text style={coinName}>Bitcoin</Text>
+                <Text style={coinName}>{name}</Text>
                 <Text style={price}>
                     1000
                     <Text style={moneySymbol}> $ </Text>
