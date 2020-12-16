@@ -10,8 +10,13 @@ export default function FetchCoinData() {
     return dispatch => {
         dispatch({ type: FETCHING_COIN_DATA })
 
-        return axios.get(`${apiBaseURL}/data-api/v3/map/all?listing_status=active&limit=10&start=10`)
-            .then(res => dispatch({ type: FETCHING_COIN_DATA_SUCCESS, payload: res.data.cryptoCurrencyMap }))
-            .catch(err => dispatch({ type: FETCHING_COIN_DATA_FAIL, payload: err }))
+        return axios.get(`${apiBaseURL}/data-api/v3/map/all?listing_status=active&limit=10&start=1`)
+            .then(res => {
+                console.log(res.data)
+                return dispatch({ type: FETCHING_COIN_DATA_SUCCESS, payload: res.data.data.cryptoCurrencyMap })
+            })
+            .catch(err => {
+                return dispatch({ type: FETCHING_COIN_DATA_FAIL, payload: err })
+            })
     }
 }
