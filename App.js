@@ -2,12 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import CoinCard from './components/CoinCard';
+import WrapperCoins from './components/WrapperCoins';
 
 export default function App() {
   return (
     <View>
-      <CoinCard />
+      <WrapperCoins />
       <StatusBar style="auto" />
     </View>
   );
