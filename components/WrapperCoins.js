@@ -9,7 +9,7 @@ import CoinCard from './CoinCard';
 const styles = StyleSheet.create({
     contentContainer: {
         paddingBottom: 100,
-        paddingTop: 55
+        paddingTop: 20
     }
 })
 

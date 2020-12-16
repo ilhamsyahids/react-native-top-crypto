@@ -5,6 +5,9 @@ const styles = StyleSheet.create({
     headerContainer: {
         display: 'flex',
         marginTop: 55,
+        paddingBottom: 15,
+        borderBottomColor: '#eaeaea',
+        borderBottomWidth: 2,
         alignItems: 'center'
     },
     header: {
