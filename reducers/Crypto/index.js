@@ -16,14 +16,14 @@ export default function(state = initState, action) {
         case FETCHING_COIN_DATA:
             return Object.assign({}, state, {
                 isFetching: true,
-                data: [],
                 isError: false,
                 errorMessage: null
             });
         case FETCHING_COIN_DATA_SUCCESS:
+            const data = state.data.concat(action.payload)
             return Object.assign({}, state, {
                 isFetching: false,
-                data: action.payload,
+                data,
                 isError: false,
                 errorMessage: null
             });

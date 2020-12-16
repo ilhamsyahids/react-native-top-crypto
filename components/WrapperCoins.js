@@ -1,58 +1,58 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native'
-import Spinner from 'react-native-loading-spinner-overlay'
+import { ActivityIndicator, FlatList } from 'react-native'
 import { connect } from 'react-redux';
 
 import FetchCoinData from '../Actions/FetchCoinData'
 import CoinCard from './CoinCard';
 
-const styles = StyleSheet.create({
-    contentContainer: {
-        paddingBottom: 100,
-        paddingTop: 20
-    }
-})
-
 class WrapperCoins extends React.Component {
 
-    componentDidMount() {
-        this.props.FetchCoinData();
+    state = {
+        start: 1,
+        limit: 10
     }
 
-    renderCards() {
-        console.log(this.props.crypto)
-        const { crypto } = this.props
-        return crypto.data.map(coin => {
-            return (
-                <CoinCard
-                    key={coin.id}
-                    id={coin.id}
-                    name={coin.name}
-                    symbol={coin.symbol}
-                />
-            )
-        })
+    componentDidMount() {
+        this.fetchCoins();
+    }
+
+    fetchCoins = () => {
+        this.props.FetchCoinData(this.state);
+    }
+
+    loadMore = () => {
+        this.setState(
+            (prevState, nextProps) => ({
+                start: prevState.start + prevState.limit
+            }),
+            () => {
+                this.fetchCoins();
+            }
+        );
     }
 
     render() {
-        const { crypto } = this.props
-        if (crypto.isFetching) {
-            return (
-                <View>
-                    <Spinner
-                        visible={crypto.isFetching}
-                        textContent="Loading..."
-                        textStyle={{ color: '#253145' }}
-                        animation="fade"
-                    />
-                </View>
-            )
-        }
-
+        const { crypto } = this.props;
         return (
-            <ScrollView contentContainerStyle={styles.contentContainer}>
-                {this.renderCards()}
-            </ScrollView>
+            <FlatList
+                data={crypto.data}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item }) => (
+                    <CoinCard
+                        key={item.id}
+                        id={item.id}
+                        name={item.name}
+                        symbol={item.symbol}
+                    />
+                )}
+                ListFooterComponent={() =>
+                    crypto.isFetching
+                    ? null
+                    : <ActivityIndicator size="large" animating />
+                }
+                onEndReached={() => this.loadMore()}
+                onEndReachedThreshold={0.5}
+            />
         )
     }
 }
