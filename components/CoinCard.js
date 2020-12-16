@@ -62,9 +62,7 @@ const styles = StyleSheet.create({
 
 const {
     container, containerRow, image,
-    coinSymbol, seperator, coinName,
-    price, moneySymbol, statsContainer,
-    percentChangeMinus, percentChangePlus
+    coinSymbol, seperator, coinName
 } = styles;
 
 const CoinCard = ({ id, symbol, name }) => {
@@ -78,20 +76,6 @@ const CoinCard = ({ id, symbol, name }) => {
                 <Text style={coinSymbol}>{symbol}</Text>
                 <Text style={seperator}>|</Text>
                 <Text style={coinName}>{name}</Text>
-                <Text style={price}>
-                    1000
-                    <Text style={moneySymbol}> $ </Text>
-                </Text>
-            </View>
-
-
-            <View style={statsContainer}>
-                <Text>24h:
-                     <Text style={percentChangeMinus}> 10 % </Text>
-                </Text>
-                <Text>7d:
-                    <Text style={ percentChangePlus }> 10 % </Text>
-                </Text>
             </View>
         </View>
     )
