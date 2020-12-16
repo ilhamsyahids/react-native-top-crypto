@@ -2,7 +2,7 @@ import {
     FETCHING_COIN_DATA,
     FETCHING_COIN_DATA_SUCCESS,
     FETCHING_COIN_DATA_FAIL
-} from './ActionTypes';
+} from './Actions/ActionTypes';
 
 const initState = {
     isFetching: null,
