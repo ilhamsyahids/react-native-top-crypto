@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     seperator: {
         marginTop: 10,
     },
-    price: {
+    coinPrice: {
         marginTop: 10,
         marginLeft: "auto",
         marginRight: 10,
@@ -62,10 +62,12 @@ const styles = StyleSheet.create({
 
 const {
     container, containerRow, image,
-    coinSymbol, seperator, coinName
+    coinSymbol, seperator, coinName,
+    coinPrice, moneySymbol, statsContainer,
+    percentChangeMinus, percentChangePlus
 } = styles;
 
-const CoinCard = ({ id, symbol, name }) => {
+const CoinCard = ({ id, symbol, name, price, price24h, price7d }) => {
     return (
         <View style={container}>
             <View style={containerRow}>
@@ -76,6 +78,32 @@ const CoinCard = ({ id, symbol, name }) => {
                 <Text style={coinSymbol}>{symbol}</Text>
                 <Text style={seperator}>|</Text>
                 <Text style={coinName}>{name}</Text>
+                <Text style={coinPrice}>
+                    {
+                        price
+                        ? price.toFixed(2)
+                        : <ActivityIndicator size="small" animating />
+                    }
+                    <Text style={moneySymbol}> $ </Text>
+                </Text>
+            </View>
+
+
+            <View style={statsContainer}>
+                <Text>24h:&nbsp;
+                    {
+                        price24h
+                        ? <Text style={price24h < 0 ? percentChangeMinus : percentChangePlus}> {price24h.toFixed(2)} % </Text>
+                        : <ActivityIndicator size="small" animating />
+                    }
+                </Text>
+                <Text>7d:&nbsp;
+                    {
+                        price7d
+                        ? <Text style={price7d < 0 ? percentChangeMinus : percentChangePlus}> {price7d.toFixed(2)} % </Text>
+                        : <ActivityIndicator size="small" animating />
+                    }
+                </Text>
             </View>
         </View>
     )

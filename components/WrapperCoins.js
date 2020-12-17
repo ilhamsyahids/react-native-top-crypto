@@ -20,7 +20,9 @@ class WrapperCoins extends React.Component {
         this.props.FetchCoinData(this.state);
     }
 
-    loadMore = () => {
+    loadMore = ({ distanceFromEnd }) => {
+        if (distanceFromEnd < 0) return;
+
         this.setState(
             (prevState, nextProps) => ({
                 start: prevState.start + prevState.limit
@@ -43,6 +45,9 @@ class WrapperCoins extends React.Component {
                         id={item.id}
                         name={item.name}
                         symbol={item.symbol}
+                        price={item.price}
+                        price24h={item.price24h}
+                        price7d={item.price7d}
                     />
                 )}
                 ListFooterComponent={() =>
@@ -50,7 +55,7 @@ class WrapperCoins extends React.Component {
                     ? null
                     : <ActivityIndicator size="large" animating />
                 }
-                onEndReached={() => this.loadMore()}
+                onEndReached={this.loadMore.bind(this)}
                 onEndReachedThreshold={0.5}
             />
         )
