@@ -1,5 +1,5 @@
 # Top Crypto
-Real-time top cryptocurrent based on market capitalizations.
+Real-time data top cryptocurrency based on market capitalizations using React Native.
 
 ## Previews
 ![Preview SS](https://imgur.com/8RthzYV.png)
